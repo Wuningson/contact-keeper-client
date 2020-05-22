@@ -15,14 +15,6 @@ import {
   GET_CONTACTS
 } from '../types';
 
-let base_url;
-
-if (process.env.NODE_ENV !== 'production') {
-  base_url = process.env.REACT_APP_SERVER;
-} else {
-  base_url = process.env.BASE_URL;
-}
-
 const ContactState = (props) => {
   const initialState = {
     contacts: null,
@@ -35,7 +27,9 @@ const ContactState = (props) => {
   // Get Contacts
   const getContacts = async () => {
     try {
-      const res = await axios.get(`${base_url}api/contacts`);
+      const res = await axios.get(
+        `https://contact-finder-api.herokuapp.com/api/contacts`
+      );
       dispatch({
         type: GET_CONTACTS,
         payload: res.data
@@ -56,7 +50,11 @@ const ContactState = (props) => {
       }
     };
     try {
-      const res = await axios.post(`${base_url}api/contacts`, contact, config);
+      const res = await axios.post(
+        `https://contact-finder-api.herokuapp.com/api/contacts`,
+        contact,
+        config
+      );
 
       dispatch({
         type: ADD_CONTACT,
@@ -72,7 +70,9 @@ const ContactState = (props) => {
   // Delete Contact
   const deleteContact = async (id) => {
     try {
-      await axios.delete(`${base_url}api/contacts/${id}`);
+      await axios.delete(
+        `https://contact-finder-api.herokuapp.com/api/contacts/${id}`
+      );
 
       dispatch({
         type: DELETE_CONTACT,
@@ -96,7 +96,7 @@ const ContactState = (props) => {
 
     try {
       const res = await axios.put(
-        `${base_url}api/contacts/${contact._id}`,
+        `https://contact-finder-api.herokuapp.com/api/contacts/${contact._id}`,
         contact,
         config
       );

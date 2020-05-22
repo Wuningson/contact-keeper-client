@@ -14,14 +14,6 @@ import {
   AUTH_ERROR
 } from '../types';
 
-let base_url;
-
-if (process.env.NODE_ENV !== 'production') {
-  base_url = process.env.REACT_APP_SERVER;
-} else {
-  base_url = process.env.BASE_URL;
-}
-
 const AuthState = (props) => {
   const initialState = {
     token: localStorage.getItem('token'),
@@ -36,7 +28,9 @@ const AuthState = (props) => {
   const loadUser = async () => {
     if (localStorage.token) setAuthToken(localStorage.token);
     try {
-      const res = await axios.get(`${base_url}api/auth`);
+      const res = await axios.get(
+        `https://contact-finder-api.herokuapp.com/api/auth`
+      );
       dispatch({ type: USER_LOADED, payload: res.data });
     } catch (error) {
       dispatch({ type: AUTH_ERROR });
@@ -51,7 +45,11 @@ const AuthState = (props) => {
       }
     };
     try {
-      const res = await axios.post(`${base_url}api/users/`, formData, config);
+      const res = await axios.post(
+        `https://contact-finder-api.herokuapp.com/api/users/`,
+        formData,
+        config
+      );
       dispatch({ type: REGISTER_SUCCESS, payload: res.data });
       loadUser();
     } catch (error) {
@@ -67,7 +65,11 @@ const AuthState = (props) => {
       }
     };
     try {
-      const res = await axios.post(`${base_url}api/auth/`, formData, config);
+      const res = await axios.post(
+        `https://contact-finder-api.herokuapp.com/api/auth/`,
+        formData,
+        config
+      );
       dispatch({ type: LOGIN_SUCCESS, payload: res.data });
       loadUser();
     } catch (error) {
