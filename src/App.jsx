@@ -12,6 +12,7 @@ import Login from './components/auth/Login';
 import Alerts from './components/layout/Alerts';
 import setAuthToken from './utils/setAuthToken';
 import PrivateRoute from './components/routing/PrivateRoute';
+import GA from './components/analytics';
 
 if (localStorage.token) setAuthToken(localStorage.token);
 
@@ -21,6 +22,7 @@ const App = () => {
       <ContactState>
         <AlertState>
           <Router>
+            {GA.init() && <GA.RouteTracker />}
             <div className='App'>
               <NavBar />
               <div className='container'>
