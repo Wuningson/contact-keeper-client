@@ -12,7 +12,7 @@ import Login from './components/auth/Login';
 import Alerts from './components/layout/Alerts';
 import setAuthToken from './utils/setAuthToken';
 import PrivateRoute from './components/routing/PrivateRoute';
-import GA from './components/analytics';
+import GoogleAnalytics from './components/analytics';
 
 if (localStorage.token) setAuthToken(localStorage.token);
 
@@ -22,16 +22,27 @@ const App = () => {
       <ContactState>
         <AlertState>
           <Router>
-            {GA.init() && <GA.RouteTracker />}
             <div className='App'>
               <NavBar />
               <div className='container'>
                 <Alerts />
                 <Switch>
                   <PrivateRoute exact path='/' component={Home} />
-                  <Route exact path='/about' component={About} />
-                  <Route exact path='/register' component={Register} />
-                  <Route exact path='/login' component={Login} />
+                  <Route
+                    exact
+                    path='/about'
+                    component={GoogleAnalytics(About)}
+                  />
+                  <Route
+                    exact
+                    path='/register'
+                    component={GoogleAnalytics(Register)}
+                  />
+                  <Route
+                    exact
+                    path='/login'
+                    component={GoogleAnalytics(Login)}
+                  />
                 </Switch>
               </div>
             </div>
